@@ -118,11 +118,13 @@ begin
     where student_id = 'SV01';
     
     start transaction;
-		update students
-        set total_debt = total_debt - 2000000
-        where student_id = 'SV01';
+		set money = money - 2000000;
         
-        
+        if money < 0 then
+			rollback;
+		else 
+			commit;
+		end if;
 end //
 Delimiter ;
 
